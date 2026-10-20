@@ -1,19 +1,53 @@
-import { routes } from "./routes.js";
+import { resolveRoute } from "./routes.js";
+import { setupGamesPage } from "./pages/gamesPage.js";
+import { renderNavbar } from "./components/navbar.js";
+import { renderFooter } from "./components/footer.js";
+
+let renderId = 0;
 
 export function initRouter() {
   window.addEventListener("hashchange", renderRoute);
+  window.addEventListener("languageChanged", renderRoute);
+
   renderRoute();
 }
 
-function renderRoute() {
+async function renderRoute() {
+  const currentRender = ++renderId;
   const app = document.getElementById("app");
+
+  if (!app) return;
+
   const path = window.location.hash.slice(1) || "/";
 
-  const page = routes[path] || routes["/"];
+  app.innerHTML = `
+    <p class="loading">GameZone ачаалж байна...</p>
+  `;
 
-  if (page) {
-    app.innerHTML = page();
-  } else {
-    app.innerHTML = "<h2>Хуудас олдсонгүй</h2>";
+  try {
+    const page = await resolveRoute(path);
+    const html = await page();
+
+    if (currentRender !== renderId) return;
+
+    app.innerHTML = html;
+
+    if (path === "/games") {
+      await setupGamesPage();
+    }
+
+    renderNavbar();
+    renderFooter();
+  } catch (error) {
+    console.error("Хуудас ачаалахад алдаа гарлаа:", error);
+
+    if (currentRender === renderId) {
+      app.innerHTML = `
+        <section class="section">
+          <h2>Хуудас ачааллахад алдаа гарлаа.</h2>
+          <p>Консолын алдааг шалгана уу.</p>
+        </section>
+      `;
+    }
   }
 }
