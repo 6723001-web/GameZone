@@ -30,6 +30,19 @@ export async function homePage() {
 
     <section class="section">
       <div class="section-heading">
+      
+    <section class="category-section">
+      <span class="eyebrow">EXPLORE BY GENRE</span>
+      <h2>Тоглоомын ангилал</h2>
+
+      <div class="category-list">
+        <a href="#/games" class="category-chip">🎯 Shooter</a>
+        <a href="#/games" class="category-chip">⚔️ Action</a>
+        <a href="#/games" class="category-chip">🧙 RPG</a>
+        <a href="#/games" class="category-chip">🧱 Sandbox</a>
+      </div>
+    </section>
+
         <div>
           <span class="eyebrow">GAME COLLECTION</span>
           <h2>${t("explore")}</h2>
