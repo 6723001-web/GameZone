@@ -18,7 +18,7 @@ export const games = [
     description: "Багийн ажиллагаа, тактик, оновчтой буудлагад тулгуурласан өрсөлдөөнт тоглоом.",
     image: "./images/cs2.jpg",
     gallery: ["./images/cs2-1.jpg", "./images/cs2-2.jpg", "./images/cs2-3.jpg"],
-    trailer: "https://www.youtube.com/results?search_query=Counter-Strike+2+official+trailer",
+    trailer: "./videos/cs2.mp4",
     officialUrl: "https://www.counter-strike.net/cs2",
   },
   {

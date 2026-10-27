@@ -1,0 +1,35 @@
+mutation CreateDemoData @transaction @auth(level: USER) {
+  user_insertMany(data: [
+    { username: "playerone", email: "p1@example.com", bio: "Retro gamer", avatarUrl: "p1.png" },
+    { username: "playertwo", email: "p2@example.com", bio: "RPG lover", avatarUrl: "p2.png" },
+    { username: "playerthree", email: "p3@example.com", bio: "Speedrunner", avatarUrl: "p3.png" }
+  ])
+  game_insertMany(data: [
+    { title: "Super Jump", developer: "JumpCo", releaseDate: "2020-01-01", genre: "Platformer", description: "Fun jumping game" },
+    { title: "Quest World", developer: "RPGSoft", releaseDate: "2021-05-15", genre: "RPG", description: "Open world adventure" },
+    { title: "Fast Cars", developer: "RacingInc", releaseDate: "2022-11-20", genre: "Racing", description: "High speed racing" }
+  ])
+  # Note: Since foreign keys are handled via reference objects (using user/game keys),
+  # typically we query IDs first. Assuming the IDs correspond to the created entities:
+  # The schema requires referencing the User/Game tables via their keys.
+  review_insertMany(data: [
+    { user: { id: "00000000-0000-0000-0000-000000000001" }, game: { id: "00000000-0000-0000-0000-000000000001" }, rating: 5, comment: "Great!" },
+    { user: { id: "00000000-0000-0000-0000-000000000002" }, game: { id: "00000000-0000-0000-0000-000000000002" }, rating: 4, comment: "Pretty good" },
+    { user: { id: "00000000-0000-0000-0000-000000000003" }, game: { id: "00000000-0000-0000-0000-000000000003" }, rating: 3, comment: "It is okay" }
+  ])
+  libraryEntry_insertMany(data: [
+    { user: { id: "00000000-0000-0000-0000-000000000001" }, game: { id: "00000000-0000-0000-0000-000000000001" }, status: "COMPLETED", hoursPlayed: 10 },
+    { user: { id: "00000000-0000-0000-0000-000000000002" }, game: { id: "00000000-0000-0000-0000-000000000002" }, status: "PLAYING", hoursPlayed: 50 },
+    { user: { id: "00000000-0000-0000-0000-000000000003" }, game: { id: "00000000-0000-0000-0000-000000000003" }, status: "WISHLIST", hoursPlayed: 0 }
+  ])
+  discussion_insertMany(data: [
+    { game: { id: "00000000-0000-0000-0000-000000000001" }, creator: { id: "00000000-0000-0000-0000-000000000001" }, title: "Tips for Level 1" },
+    { game: { id: "00000000-0000-0000-0000-000000000002" }, creator: { id: "00000000-0000-0000-0000-000000000002" }, title: "Best build guide" },
+    { game: { id: "00000000-0000-0000-0000-000000000003" }, creator: { id: "00000000-0000-0000-0000-000000000003" }, title: "Multiplayer issues" }
+  ])
+  follow_insertMany(data: [
+    { follower: { id: "00000000-0000-0000-0000-000000000001" }, following: { id: "00000000-0000-0000-0000-000000000002" } },
+    { follower: { id: "00000000-0000-0000-0000-000000000002" }, following: { id: "00000000-0000-0000-0000-000000000003" } },
+    { follower: { id: "00000000-0000-0000-0000-000000000003" }, following: { id: "00000000-0000-0000-0000-000000000001" } }
+  ])
+}

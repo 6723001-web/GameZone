@@ -3,7 +3,7 @@ import { setupGamesPage } from "./pages/gamesPage.js";
 import { renderNavbar } from "./components/navbar.js";
 import { renderFooter } from "./components/footer.js";
 import { setupGallery } from "./pages/detailPage.js";
-
+import { bindAuthForms } from "./services/authHandlers.js";
 let renderId = 0;
 
 export function initRouter() {
@@ -32,6 +32,11 @@ async function renderRoute() {
     if (currentRender !== renderId) return;
 
     app.innerHTML = html;
+
+    // Login болон Sign Up товчнуудыг холбох
+    if (path === "/login" || path === "/signup") {
+      bindAuthForms();
+    }
 
     if (path === "/games") {
       await setupGamesPage();

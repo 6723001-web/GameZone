@@ -36,10 +36,10 @@ export async function homePage() {
       <h2>Тоглоомын ангилал</h2>
 
       <div class="category-list">
-        <a href="#/games" class="category-chip">🎯 Shooter</a>
-        <a href="#/games" class="category-chip">⚔️ Action</a>
-        <a href="#/games" class="category-chip">🧙 RPG</a>
-        <a href="#/games" class="category-chip">🧱 Sandbox</a>
+        <a href="#/games" class="category-chip"> Shooter</a>
+        <a href="#/games" class="category-chip"> Action</a>
+        <a href="#/games" class="category-chip"> RPG</a>
+        <a href="#/games" class="category-chip"> Sandbox</a>
       </div>
     </section>
 
@@ -60,5 +60,25 @@ export async function homePage() {
       <h2>Тоглоомын ертөнцийн шинэ мэдээлэл</h2>
       <p>Шинэ тоглоом, трейлер болон тоглоомын мэдээллийг нэг дороос.</p>
     </section>
+    
+<section class="home-actions">
+  <h2>LEVEL UP YOUR GAME</h2>
+  <p>GameZone-д нэгдэж, дуртай тоглоомуудаа нээгээрэй.</p>
+
+  <div class="home-action-buttons">
+    <a href="#/games" class="btn btn-primary">
+      🎮 Тоглоом үзэх
+    </a>
+
+    <a href="#/login" class="btn btn-outline">
+      Нэвтрэх
+    </a>
+
+    <a href="#/signup" class="btn btn-signup">
+      Бүртгүүлэх
+    </a>
+  </div>
+</section>
+
   `;
 }

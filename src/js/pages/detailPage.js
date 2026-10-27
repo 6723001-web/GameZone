@@ -41,12 +41,24 @@ export async function detailPage(id) {
           ${t("official")}
         </a>
 
-        <a class="btn btn-outline"
-           href="${escapeHTML(game.trailer)}"
-           target="_blank"
-           rel="noopener noreferrer">
-          ${t("trailer")}
-        </a>
+        
+<div class="trailer-section">
+  <h2> ${t("trailer")}</h2>
+
+  <video
+    class="game-trailer"
+    controls
+    preload="metadata"
+    playsinline
+  >
+    <source
+      src="${escapeHTML(game.trailer)}"
+      type="video/mp4"
+    >
+    Таны хөтөч видео тоглуулах боломжгүй байна.
+  </video>
+</div>
+
       </div>
     </section>
 

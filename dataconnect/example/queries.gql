@@ -1,0 +1,144 @@
+mutation CreateUser @auth(level: USER) {
+  user_insert(data: {id_expr: "auth.uid", username: "exampleUser", email: "user@example.com"})
+}
+
+mutation UpdateUser($username: String, $bio: String) @auth(level: USER) {
+  user_update(key: {id_expr: "auth.uid"}, data: {username: $username, bio: $bio})
+}
+
+mutation DeleteUser @auth(level: USER) {
+  user_delete(key: {id_expr: "auth.uid"})
+}
+
+query GetMyUser @auth(level: USER) {
+  user(key: {id_expr: "auth.uid"}) {
+    username email bio avatarUrl
+  }
+}
+
+query ListUsers @auth(level: PUBLIC, insecureReason: "Listing users is intended for social discovery.") {
+  users {
+    username bio avatarUrl
+  }
+}
+
+mutation CreateGame($title: String!, $developer: String!, $releaseDate: Date!) @auth(level: PUBLIC, insecureReason: "Games are public knowledge.") {
+  game_insert(data: {title: $title, developer: $developer, releaseDate: $releaseDate})
+}
+
+mutation UpdateGame($id: UUID!, $description: String) @auth(level: PUBLIC, insecureReason: "Game details are public.") {
+  game_update(key: {id: $id}, data: {description: $description})
+}
+
+mutation DeleteGame($id: UUID!) @auth(level: PUBLIC, insecureReason: "Admin cleanup.") {
+  game_delete(key: {id: $id})
+}
+
+query GetGame($id: UUID!) @auth(level: PUBLIC, insecureReason: "Publicly accessible information.") {
+  game(id: $id) {
+    title developer genre description imageUrl
+  }
+}
+
+query ListGames @auth(level: PUBLIC, insecureReason: "Public directory.") {
+  games {
+    title developer releaseDate
+  }
+}
+
+mutation AddLibraryEntry($gameId: UUID!, $status: String!) @auth(level: USER) {
+  libraryEntry_insert(data: {userId_expr: "auth.uid", gameId: $gameId, status: $status})
+}
+
+mutation UpdateLibraryEntry($id: UUID!, $hoursPlayed: Int, $status: String) @auth(level: USER) {
+  libraryEntry_update(key: {id: $id}, data: {hoursPlayed: $hoursPlayed, status: $status})
+}
+
+mutation DeleteLibraryEntry($id: UUID!) @auth(level: USER) {
+  libraryEntry_delete(key: {id: $id})
+}
+
+query GetMyLibrary @auth(level: USER) {
+  libraryEntries(where: {userId: {eq_expr: "auth.uid"}}) {
+    game { title }
+    status hoursPlayed
+  }
+}
+
+query ListLibraryEntries @auth(level: PUBLIC, insecureReason: "Public user profiles.") {
+  libraryEntries {
+    user { username }
+    game { title }
+    status
+  }
+}
+
+mutation CreateReview($gameId: UUID!, $rating: Int!, $comment: String) @auth(level: USER) {
+  review_insert(data: {userId_expr: "auth.uid", gameId: $gameId, rating: $rating, comment: $comment})
+}
+
+mutation UpdateReview($id: UUID!, $rating: Int, $comment: String) @auth(level: USER) {
+  review_update(key: {id: $id}, data: {rating: $rating, comment: $comment})
+}
+
+mutation DeleteReview($id: UUID!) @auth(level: USER) {
+  review_delete(key: {id: $id})
+}
+
+query GetMyReviews @auth(level: USER) {
+  reviews(where: {userId: {eq_expr: "auth.uid"}}) {
+    game { title }
+    rating comment
+  }
+}
+
+query ListGameReviews($gameId: UUID!) @auth(level: PUBLIC, insecureReason: "Reviews are public.") {
+  reviews(where: {gameId: {eq: $gameId}}) {
+    user { username }
+    rating comment
+  }
+}
+
+mutation CreateDiscussion($gameId: UUID!, $title: String!, $content: String) @auth(level: USER) {
+  discussion_insert(data: {creatorId_expr: "auth.uid", gameId: $gameId, title: $title, content: $content})
+}
+
+mutation UpdateDiscussion($id: UUID!, $content: String) @auth(level: USER) {
+  discussion_update(key: {id: $id}, data: {content: $content})
+}
+
+mutation DeleteDiscussion($id: UUID!) @auth(level: USER) {
+  discussion_delete(key: {id: $id})
+}
+
+query GetDiscussion($id: UUID!) @auth(level: PUBLIC, insecureReason: "Discussions are public.") {
+  discussion(id: $id) {
+    title content creator { username }
+  }
+}
+
+query ListDiscussions @auth(level: PUBLIC, insecureReason: "Discussions are public.") {
+  discussions {
+    title game { title }
+  }
+}
+
+mutation FollowUser($followingId: UUID!) @auth(level: USER) {
+  follow_insert(data: {followerId_expr: "auth.uid", followingId: $followingId})
+}
+
+mutation UnfollowUser($id: UUID!) @auth(level: USER) {
+  follow_delete(key: {id: $id})
+}
+
+query GetMyFollows @auth(level: USER) {
+  follows(where: {followerId: {eq_expr: "auth.uid"}}) {
+    following { username }
+  }
+}
+
+query ListFollowers($userId: UUID!) @auth(level: PUBLIC, insecureReason: "Social graph is public.") {
+  follows(where: {followingId: {eq: $userId}}) {
+    follower { username }
+  }
+}

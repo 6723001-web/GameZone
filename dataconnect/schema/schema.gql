@@ -1,0 +1,45 @@
+type User @table {
+  username: String!
+  email: String!
+  bio: String
+  avatarUrl: String
+  joinDate: Date
+}
+
+type Game @table {
+  title: String!
+  developer: String!
+  releaseDate: Date!
+  genre: String
+  description: String
+  imageUrl: String
+}
+
+type LibraryEntry @table {
+  user: User!
+  game: Game!
+  status: String!
+  hoursPlayed: Int
+  lastPlayedDate: Date
+}
+
+type Review @table {
+  user: User!
+  game: Game!
+  rating: Int!
+  comment: String
+  timestamp: Timestamp
+}
+
+type Discussion @table {
+  game: Game!
+  creator: User!
+  title: String!
+  content: String
+  createdAt: Timestamp
+}
+
+type Follow @table {
+  follower: User!
+  following: User!
+}
