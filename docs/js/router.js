@@ -2,6 +2,7 @@ import { resolveRoute } from "./routes.js";
 import { setupGamesPage } from "./pages/gamesPage.js";
 import { renderNavbar } from "./components/navbar.js";
 import { renderFooter } from "./components/footer.js";
+import { setupGallery } from "./pages/detailPage.js";
 
 let renderId = 0;
 
@@ -34,6 +35,10 @@ async function renderRoute() {
 
     if (path === "/games") {
       await setupGamesPage();
+    }
+
+    if (path.startsWith("/game/")) {
+      setupGallery();
     }
 
     renderNavbar();

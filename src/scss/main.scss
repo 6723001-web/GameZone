@@ -399,3 +399,307 @@ select {
     padding: 20px 5%;
   }
 }
+
+.game-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.gallery-item {
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #342443;
+  border-radius: 12px;
+  background: #171022;
+  cursor: zoom-in;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.06);
+  }
+}
+
+.image-modal[hidden] {
+  display: none;
+}
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.92);
+
+  img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  padding: 10px 15px;
+  color: white;
+  border: 1px solid #8b5cf6;
+  border-radius: 8px;
+  background: #171022;
+  cursor: pointer;
+}
+
+/* ===== CYBERPUNK GAMEZONE THEME ===== */
+
+:root {
+  --cyber-bg: #070710;
+  --cyber-panel: #101020;
+  --cyber-purple: #8b5cf6;
+  --cyber-cyan: #00f5ff;
+  --cyber-text: #f4f4ff;
+  --cyber-muted: #aaaac4;
+}
+
+/* Үндсэн дэвсгэр */
+html {
+  scroll-behavior: smooth;
+  background: var(--cyber-bg);
+}
+
+body {
+  color: var(--cyber-text);
+  background-color: var(--cyber-bg);
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(139, 92, 246, 0.17), transparent 40%),
+    radial-gradient(ellipse at 85% 35%, rgba(0, 245, 255, 0.09), transparent 35%),
+    linear-gradient(rgba(0, 245, 255, 0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 245, 255, 0.035) 1px, transparent 1px);
+  background-size:
+    auto,
+    auto,
+    42px 42px,
+    42px 42px;
+  background-attachment: fixed;
+}
+
+/* Гарчиг */
+h1,
+h2,
+h3 {
+  color: var(--cyber-text);
+  text-shadow: 0 0 18px rgba(139, 92, 246, 0.2);
+}
+
+.eyebrow,
+.game-category {
+  color: var(--cyber-cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Glassmorphism navbar */
+.navbar {
+  background: rgba(10, 10, 22, 0.78);
+  border-bottom: 1px solid rgba(0, 245, 255, 0.22);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.navbar a {
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+.navbar a:hover {
+  color: var(--cyber-cyan);
+  text-shadow: 0 0 12px var(--cyber-cyan);
+}
+
+/* Gaming cards */
+.game-card,
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(24, 20, 43, 0.96), rgba(10, 12, 25, 0.96));
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 16px;
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.game-card:hover,
+.feature-card:hover {
+  transform: translateY(-7px);
+  border-color: var(--cyber-cyan);
+  box-shadow:
+    0 0 15px rgba(0, 245, 255, 0.15),
+    0 0 35px rgba(139, 92, 246, 0.18);
+}
+
+.game-image {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  transition:
+    transform 0.5s ease,
+    filter 0.3s ease;
+}
+
+.game-card:hover .game-image {
+  transform: scale(1.05);
+  filter: saturate(1.2);
+}
+
+.game-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Cyber-style buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 8px;
+  font-weight: 700;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(110deg, var(--cyber-purple), #5b4dff);
+  border: 1px solid rgba(0, 245, 255, 0.45);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.22);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 12px rgba(0, 245, 255, 0.4),
+    0 0 28px rgba(139, 92, 246, 0.4);
+}
+
+.btn-outline,
+.btn-secondary {
+  color: var(--cyber-cyan);
+  background: rgba(0, 245, 255, 0.04);
+  border: 1px solid rgba(0, 245, 255, 0.55);
+}
+
+.btn-outline:hover,
+.btn-secondary:hover {
+  color: #070710;
+  background: var(--cyber-cyan);
+  box-shadow: 0 0 18px rgba(0, 245, 255, 0.3);
+}
+
+/* Search and form inputs */
+input,
+select,
+textarea {
+  color: var(--cyber-text);
+  background: rgba(12, 12, 28, 0.9);
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  border-radius: 8px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--cyber-cyan);
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.18);
+}
+
+/* Detail page */
+.detail-hero {
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 35px rgba(139, 92, 246, 0.12);
+}
+
+.detail-overlay {
+  background: linear-gradient(135deg, rgba(12, 10, 28, 0.96), rgba(10, 20, 35, 0.92));
+}
+
+.game-gallery .gallery-item {
+  border-color: rgba(139, 92, 246, 0.45);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.game-gallery .gallery-item:hover {
+  border-color: var(--cyber-cyan);
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+}
+
+/* Footer */
+footer {
+  border-top: 1px solid rgba(0, 245, 255, 0.2);
+  background: rgba(7, 7, 16, 0.85);
+}
+
+/* Accessibility */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--cyber-cyan);
+  outline-offset: 4px;
+}
+
+/* Хөдөлгөөн багасгах тохиргоо */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Гар утас, таблет */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-size:
+      auto,
+      auto,
+      28px 28px,
+      28px 28px;
+  }
+
+  .game-card:hover,
+  .feature-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .detail-hero {
+    border-radius: 12px;
+  }
+
+  .game-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+  }
+}

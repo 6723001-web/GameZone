@@ -20,6 +20,8 @@ export async function detailPage(id) {
   const safeCategory = escapeHTML(game.category);
   const safeYear = escapeHTML(String(game.year));
 
+  const gallery = Array.isArray(game.gallery) ? game.gallery : [];
+
   return `
     <section class="detail-hero">
       <img
@@ -49,6 +51,48 @@ export async function detailPage(id) {
     </section>
 
     <section class="section">
+      <h2>Тоглоомын нэмэлт зургууд</h2>
+
+      ${
+        gallery.length
+          ? `
+            <div class="game-gallery">
+              ${gallery
+                .map(
+                  (image, index) => `
+                <button
+                  class="gallery-item"
+                  type="button"
+                  data-image="${escapeHTML(image)}"
+                  aria-label="Зураг ${index + 1}-ийг томоор харах"
+                >
+                  <img
+                    src="${escapeHTML(image)}"
+                    alt="${safeTitle} зураг ${index + 1}"
+                    loading="lazy"
+                  >
+                </button>
+              `,
+                )
+                .join("")}
+            </div>
+          `
+          : `<p>Нэмэлт зураг одоогоор алга байна.</p>`
+      }
+
+      <div id="image-modal" class="image-modal" hidden>
+        <button
+          id="close-image-modal"
+          class="modal-close"
+          type="button"
+          aria-label="Хаах"
+        >✕</button>
+
+        <img id="modal-image" src="" alt="Томруулсан тоглоомын зураг">
+      </div>
+    </section>
+
+    <section class="section">
       <h2>Тоглоомын мэдээлэл</h2>
 
       <div class="feature-card">
@@ -63,6 +107,33 @@ export async function detailPage(id) {
       </a>
     </section>
   `;
+}
+
+export function setupGallery() {
+  const modal = document.getElementById("image-modal");
+  const modalImage = document.getElementById("modal-image");
+  const closeButton = document.getElementById("close-image-modal");
+
+  if (!modal || !modalImage || !closeButton) return;
+
+  document.querySelectorAll(".gallery-item").forEach((button) => {
+    button.addEventListener("click", () => {
+      modalImage.src = button.dataset.image;
+      modal.hidden = false;
+    });
+  });
+
+  closeButton.addEventListener("click", () => {
+    modal.hidden = true;
+    modalImage.src = "";
+  });
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.hidden = true;
+      modalImage.src = "";
+    }
+  });
 }
 
 function escapeHTML(value) {
