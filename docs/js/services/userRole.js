@@ -1,14 +1,9 @@
 import { auth } from "./firebase.js";
 
-// Хэрэглэгчийн role-ийг Firebase ID-аар хадгалах.
-// Admin role-ийг зөвхөн итгэмжлэгдсэн тохиргоогоор олгоно.
-const ADMIN_UIDS = [
-  // Энд өөрийн Firebase User UID-г нэмнэ.
-];
+const ADMIN_UIDS = ["Leqo1tdcr8Yl45sKDbZMjSoFXJF2"];
 
 export function getUserRole(user) {
   if (!user) return null;
-
   return ADMIN_UIDS.includes(user.uid) ? "admin" : "user";
 }
 

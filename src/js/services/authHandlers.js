@@ -19,19 +19,23 @@ export function bindAuthForms() {
     try {
       await action();
       showMessage("Амжилттай! Нүүр хуудас руу шилжиж байна.");
-
       window.location.hash = "#/";
     } catch (error) {
+      if (error.code === "auth/popup-closed-by-user") {
+        showMessage("Нэвтрэх цонх хаагдлаа. Дахин оролдоно уу.");
+        return;
+      }
+
       console.error("Authentication error:", error);
 
       const messages = {
         "auth/invalid-credential": "Имэйл эсвэл нууц үг буруу байна.",
         "auth/email-already-in-use": "Энэ имэйл бүртгэлтэй байна.",
         "auth/weak-password": "Илүү хүчтэй нууц үг оруулна уу.",
-        "auth/popup-closed-by-user": "Нэвтрэх цонх хаагдлаа.",
         "auth/popup-blocked": "Browser popup нээхийг хориглолоо.",
         "auth/unauthorized-domain": "Энэ домэйн Firebase-д зөвшөөрөгдөөгүй.",
         "auth/operation-not-allowed": "Firebase дээр энэ нэвтрэх арга идэвхгүй байна.",
+        "auth/network-request-failed": "Интернет холболтоо шалгана уу.",
       };
 
       showMessage(messages[error.code] || `Алдаа гарлаа: ${error.code || error.message}`);

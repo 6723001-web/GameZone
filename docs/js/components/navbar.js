@@ -1,5 +1,6 @@
 import { getLanguage, setLanguage, t } from "../i18n/translations.js";
 import { auth, onAuthStateChanged, signOut } from "../services/firebase.js";
+import { isAdmin } from "../services/userRole.js";
 
 let currentUser = null;
 let authListenerStarted = false;
@@ -18,6 +19,8 @@ export function renderNavbar() {
         <a href="#/">${t("home")}</a>
         <a href="#/games">${t("games")}</a>
         <a href="#/about">${t("about")}</a>
+
+        ${currentUser && isAdmin(currentUser) ? `<a href="#/admin" class="admin-link">Admin Panel</a>` : ""}
       </div>
 
       <div class="nav-actions">
@@ -45,12 +48,8 @@ export function renderNavbar() {
               </button>
             `
             : `
-              <a href="#/login" class="login-btn">
-                ${t("login")}
-              </a>
-              <a href="#/signup" class="signup-btn">
-                ${t("signup")}
-              </a>
+              <a href="#/login" class="login-btn">${t("login")}</a>
+              <a href="#/signup" class="signup-btn">${t("signup")}</a>
             `
         }
       </div>
@@ -72,7 +71,6 @@ export function renderNavbar() {
     }
   });
 
-  // Firebase хэрэглэгчийн төлөвийг зөвхөн нэг удаа сонсоно.
   if (!authListenerStarted) {
     authListenerStarted = true;
 
